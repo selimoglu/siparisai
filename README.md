@@ -49,7 +49,6 @@ npm run dev
 
 ## Bilinen eksikler (sıradaki işler)
 
-- WhatsApp'tan sipariş alan yapay zeka (Meta WhatsApp Business API onayı gerekiyor)
 - Online kartla ödeme (iyzico/PayTR, şirket başvurusu gerekiyor)
 - Sipariş formuna hız sınırı ve bot koruması (ör. Cloudflare Turnstile)
 - Otomatik kampanyalar (şu an kampanyayı sahibi başlatıyor; zamanlayıcı eklenecek)
