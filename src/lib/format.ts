@@ -38,6 +38,8 @@ export function siteUrl(r: { slug: string; custom_domain: string | null }) {
   if (r.custom_domain) return `https://${r.custom_domain}`;
   const root = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000";
   if (root.startsWith("localhost")) return `http://${root}/r/${r.slug}`;
+  // Kendi alan adımız bağlanana kadar (ör. xxx.vercel.app) alt adres yerine yol kullanılır.
+  if (root.endsWith(".vercel.app")) return `https://${root}/r/${r.slug}`;
   return `https://${r.slug}.${root}`;
 }
 

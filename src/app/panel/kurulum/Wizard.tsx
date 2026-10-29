@@ -7,6 +7,9 @@ import { slugify } from "@/lib/format";
 import type { Restaurant } from "@/lib/types";
 import MenuImporter from "@/components/MenuImporter";
 
+const ROOT = process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "siparisai.com";
+const PATH_MODE = ROOT.startsWith("localhost") || ROOT.endsWith(".vercel.app");
+
 export default function Wizard({ userId, restaurant }: { userId: string; restaurant: Restaurant | null }) {
   const router = useRouter();
   const [r, setR] = useState<Restaurant | null>(restaurant);
@@ -49,9 +52,10 @@ export default function Wizard({ userId, restaurant }: { userId: string; restaur
           <div>
             <label className="label">Site adresin</label>
             <div className="flex items-center gap-1 text-sm">
+              {PATH_MODE && <span className="whitespace-nowrap text-muted">{ROOT}/r/</span>}
               <input className="input" required value={form.slug}
                 onChange={(e) => { setSlugTouched(true); set("slug", slugify(e.target.value)); }} />
-              <span className="whitespace-nowrap text-muted">.{process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "siparisai.com"}</span>
+              {!PATH_MODE && <span className="whitespace-nowrap text-muted">.{ROOT}</span>}
             </div>
           </div>
           <Field label="Telefon" value={form.phone} onChange={(v) => set("phone", v)} placeholder="0216 000 00 00" />
