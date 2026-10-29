@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SiparişAI
 
-## Getting Started
+Restoranlara kendi adlarıyla komisyonsuz sipariş sitesi ve yapay zekalı pazarlama sunan SaaS.
 
-First, run the development server:
+## Neler çalışıyor
+
+- **Kayıt ve giriş:** restoran sahibi e-posta ve şifreyle hesap açar.
+- **Kurulum:** restoran bilgileri girilir, menü fotoğrafı yüklenir veya yapıştırılır. Yapay zeka (Claude) menüyü okur, sahibi düzeltip kaydeder.
+- **Sipariş sitesi:** her restoran `restoran.siparisai.com` adresinde ya da kendi alan adında açılır.
+  - Kategori menüsü, sepet, paket veya gel-al seçimi, kapıda ödeme.
+  - Direkt sipariş indirimi ve SMS kampanya izni (İYS) kutusu.
+  - Google için yapılandırılmış menü verisi (schema.org).
+- **Sipariş ekranı:** yeni sipariş sesli uyarıyla anında düşer. Durum akışı: yeni → hazırlanıyor → yolda / gel-al hazır → teslim.
+- **Müşteri listesi:** her siparişte müşteri kaydı otomatik oluşur. Müşteriler kitlelere ayrılır: kaybolmak üzere, sadık, yeni, doğum günü.
+- **Kampanyalar:**
+  - Yapay zeka seçilen kitleye SMS metni yazar.
+  - SMS sadece izinli müşterilere gider.
+  - Kampanya linkinden gelen siparişler sayılır ve ciro olarak gösterilir.
+  - SMS hesabı bağlı değilse kampanyalar "deneme modu"nda çalışır ve SMS gönderilmez.
+- **Özet:** direkt sipariş, ciro, ödenmeyen platform komisyonu ve kampanyadan gelen ciro.
+- **QR kart:** platform paketlerine konacak, indirimli ve takipli QR kod.
+
+Fiyatlar her zaman veritabanındaki menüden yeniden hesaplanır (`place_order` fonksiyonu). Tarayıcıdan gelen fiyata güvenilmez. Her restoran yalnızca kendi verisini görür (Supabase RLS).
+
+## Teknoloji
+
+- **Uygulama:** Next.js 16 (App Router) ve Tailwind 4
+- **Veritabanı, giriş ve canlı bağlantı:** Supabase (Postgres, Auth, Realtime)
+- **Yapay zeka:** Anthropic Claude API
+- **SMS:** Netgsm (boşsa deneme modu)
+- **Yayın:** Vercel
+
+## Yerelde çalıştırma
 
 ```bash
+npm install
+npx supabase start        # Docker gerekir; şemayı otomatik kurar
+cp .env.example .env.local # supabase start çıktısındaki URL ve anon key'i yaz
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Canlıya alma (adım adım)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Supabase:** supabase.com'da proje aç. SQL Editor'de `supabase/migrations/0001_init.sql` dosyasını çalıştır. Authentication → URL Configuration bölümünde Site URL'yi `https://siparisai.com` yap.
+2. **Vercel:** Bu repoyu Vercel'e bağla. Environment Variables bölümüne `.env.example` içindeki değerleri gir.
+3. **Alan adı:** Vercel'de `siparisai.com` ve `*.siparisai.com` (wildcard) ekle. Wildcard için alan adının DNS'i Vercel'e yönlendirilmeli (nameserver).
+4. **Yapay zeka:** console.anthropic.com'dan API anahtarı al, `ANTHROPIC_API_KEY` olarak gir.
+5. **SMS:** Netgsm hesabı, onaylı SMS başlığı ve İYS kaydı hazır olunca `NETGSM_*` değişkenlerini gir. Netgsm API alanlarını canlıdan önce güncel dokümanla doğrula (`src/lib/sms.ts`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Bilinen eksikler (sıradaki işler)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- WhatsApp'tan sipariş alan yapay zeka (Meta WhatsApp Business API onayı gerekiyor)
+- Online kartla ödeme (iyzico/PayTR, şirket başvurusu gerekiyor)
+- Sipariş formuna hız sınırı ve bot koruması (ör. Cloudflare Turnstile)
+- Otomatik kampanyalar (şu an kampanyayı sahibi başlatıyor; zamanlayıcı eklenecek)
+- Ürün fotoğrafı yükleme, Google İşletme Profili bağlantısı
+- KVKK aydınlatma metni ve kullanım şartları sayfaları
