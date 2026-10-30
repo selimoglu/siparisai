@@ -355,7 +355,7 @@ export default function OrderSite({ restaurant: r, categories, items, popularIds
               <div className="grid grid-cols-2 gap-2">
                 {(["delivery", "pickup"] as const).map((m) => (
                   <button key={m} type="button" onClick={() => setMode(m)}
-                    className={`rounded-xl border p-2 text-sm font-semibold ${mode === m ? "border-brand bg-orange-50" : "border-line"}`}>
+                    className={`rounded-xl border p-2 text-sm font-semibold ${mode === m ? "border-brand bg-brand/10" : "border-line"}`}>
                     {m === "delivery" ? "Paket servis" : "Gel-al"}
                   </button>
                 ))}

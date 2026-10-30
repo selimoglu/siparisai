@@ -82,7 +82,7 @@ export default async function Dashboard() {
 
 function Kpi({ label, value, hint, accent }: { label: string; value: string; hint?: string; accent?: boolean }) {
   return (
-    <div className={`card ${accent ? "border-brand/40 bg-orange-50" : ""}`}>
+    <div className={`card ${accent ? "border-brand/40 bg-brand/10" : ""}`}>
       <p className="text-xs font-semibold uppercase tracking-wide text-muted">{label}</p>
       <p className={`mt-1 font-display text-2xl font-bold ${accent ? "text-brand" : ""}`}>{value}</p>
       {hint && <p className="mt-1 text-xs text-muted">{hint}</p>}

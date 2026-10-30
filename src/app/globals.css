@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #faf7f2;
+  /* SiparişAI marka renkleri: Owner.com'un siyah-beyaz, sade paleti */
+  --bg: #f8f8f8;
   --surface: #ffffff;
-  --ink: #1c1917;
-  --muted: #78716c;
-  --line: #e7e0d6;
-  --brand: #c2410c;
+  --ink: #080808;
+  --muted: #888888;
+  --line: #d8d8d8;
+  --brand: #080808;
   --brand-ink: #ffffff;
   --ok: #15803d;
   --warn: #b45309;

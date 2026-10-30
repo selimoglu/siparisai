@@ -55,7 +55,7 @@ export default function Composer({ counts, smsFooter }: { counts: Record<Segment
         <div className="grid gap-2 sm:grid-cols-2">
           {(Object.keys(SEGMENTS) as SegmentKey[]).map((k) => (
             <button key={k} onClick={() => setSegment(k)}
-              className={`rounded-xl border p-3 text-left ${segment === k ? "border-brand bg-orange-50" : "border-line"}`}>
+              className={`rounded-xl border p-3 text-left ${segment === k ? "border-brand bg-brand/10" : "border-line"}`}>
               <p className="font-semibold">{SEGMENTS[k].label} <span className="text-muted">({counts[k]})</span></p>
               <p className="text-xs text-muted">{SEGMENTS[k].hint}</p>
             </button>
@@ -75,7 +75,7 @@ export default function Composer({ counts, smsFooter }: { counts: Record<Segment
           <div className="flex flex-wrap gap-2">
             {variants.map((v, i) => (
               <button key={i} onClick={() => setMessage(v)}
-                className={`rounded-lg border px-3 py-1 text-xs ${message === v ? "border-brand bg-orange-50" : "border-line"}`}>
+                className={`rounded-lg border px-3 py-1 text-xs ${message === v ? "border-brand bg-brand/10" : "border-line"}`}>
                 Seçenek {i + 1}
               </button>
             ))}
