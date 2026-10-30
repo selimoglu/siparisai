@@ -1,260 +1,180 @@
 import Link from "next/link";
-import Calculator from "@/components/site/Calculator";
-import HeroPhone from "@/components/site/HeroPhone";
+import HeroProblem from "@/components/site/HeroProblem";
 import Reveal from "@/components/site/Reveal";
-import {
-  AiSms, CommissionSplit, FeatureBand, LiveOrders, MenuScan, OrderToast, SearchRank,
-} from "@/components/site/Animations";
-import { Check, Cross, Eyebrow, FinalCta, SectionHead } from "@/components/site/Blocks";
-
-const MENU_POINTS = [
-  ["Google'da üst sıralarda çık", "Menün, saatlerin ve yorumların Google'ın anlayacağı şekilde hazırlanır. Seni arayan sana ulaşır."],
-  ["Fotoğraf ve yorumla daha çok sipariş", "İştah açan fotoğraflar, gerçek müşteri yorumları ve en çok sevilenler. Sepet büyür."],
-  ["Komisyonsuz doğrudan sipariş", "Müşteri senin sitenden sipariş verir. Platformun %18–22 komisyonu cebinde kalır."],
-];
+import { BenefitGrid, LaunchChecklist, ProofMarquee } from "@/components/site/HomeVisuals";
+import { LiveOrders, MenuScan } from "@/components/site/Animations";
+import { FinalCta } from "@/components/site/Blocks";
 
 const STEPS = [
-  { t: "Ücretsiz kaydol", d: "Restoranının adını ve adresini gir. Kart bilgisi istemiyoruz." },
-  { t: "Menünün fotoğrafını çek", d: "Yapay zeka menünü okur, siten 10 dakikada yayında." },
-  { t: "Müşterini sitene taşı", d: "Paketlere QR kart koy. Yapay zeka müşterini geri getirir." },
+  { t: "Menünüzün fotoğrafını çekin.", d: "Yapay zeka ürünleri ve fiyatları otomatik ekler.", V: MenuScan },
+  { t: "Sitenizi yayına alın.", d: "Google'da görünür, QR kodunuz ve sipariş paneliniz hazır olur.", V: LaunchChecklist },
+  { t: "Komisyonsuz sipariş alın.", d: "Kazancın tamamı sizde kalır, kampanyalar müşterilerinize otomatik gider.", V: LiveOrders },
 ];
 
-const COMPARE: [string, string][] = [
-  ["Her siparişte %18–22 komisyon", "Sipariş başına komisyon yok"],
-  ["Müşteri platformun", "Müşteri listesi senin"],
-  ["Rakiplerle aynı listede", "Sadece senin menün"],
-  ["Müşteriye ulaşamazsın", "Yapay zeka müşterini geri getirir"],
+const BELIEFS = [
+  {
+    t: "Rekabet ortamı adil değil.",
+    d: "Büyük zincirlerin kendi uygulaması, reklam bütçesi ve yazılım ekibi var. Mahalle restoranı ise aynı müşteri için platforma komisyon ödüyor. Bu farkı kapatmak için buradayız.",
+  },
+  {
+    t: "Bütün işletmeler yapay zekadan yararlanmalı.",
+    d: "Yapay zeka sadece büyük şirketlerin işi değil. Menüyü okuyan, siteyi kuran, müşteriye mesajı yazan bir asistan her restoranın hakkı.",
+  },
+  {
+    t: "Önceliğimiz her şeyden önce sizin kârınızı artırmak.",
+    d: "Gösterişli özellikler değil, sonuç. Yaptığımız her şeyi tek soruyla ölçüyoruz: Bu, restoranın cebine daha fazla para bırakıyor mu?",
+  },
 ];
 
-const FAQ = [
-  ["Platformlardan çıkmam gerekiyor mu?", "Hayır. Platformlarda kalmaya devam et. SiparişAI, müdavimlerini komisyonsuz kendi sitene taşımana yardım eder."],
-  ["Teknik bilgi gerekiyor mu?", "Hayır. Menünün fotoğrafını yüklemen yeterli. Siteyi, menüyü ve QR kartlarını biz hazırlarız."],
-  ["Kuryem yoksa ne olacak?", "Gel-al siparişi açabilirsin. En iyi sonucu kendi kuryesi olan restoranlar alıyor."],
-  ["Ödeme nasıl alınıyor?", "Şu an kapıda nakit veya kartla ödeme var. Online kart ödemesi yakında ekleniyor."],
-  ["Kendi alan adımı kullanabilir miyim?", "Evet. Restoranının alan adını (örneğin restoraniniz.com) sitene bağlayabiliriz."],
-];
+function Curves({ className = "" }: { className?: string }) {
+  return (
+    <svg className={`pointer-events-none absolute inset-0 h-full w-full ${className}`} viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden>
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <path
+          key={i}
+          d={`M-80 ${180 + i * 70} C 420 ${-40 + i * 80}, 980 ${620 + i * 30}, 1520 ${260 + i * 70}`}
+          fill="none"
+          stroke="white"
+          strokeOpacity={0.09}
+          strokeWidth="1.5"
+        />
+      ))}
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
     <>
-      {/* 1. Hero: üstte tek cümle vaat ve buton, altında hareketli telefon */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]" />
-        <div className="anim-glow pointer-events-none absolute top-[420px] left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(22,173,56,0.35),transparent)] blur-2xl" />
+      {/* 1. Başlık, alt başlık, altında görsel */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#062e0d] via-[#094413] to-[#16ad38] text-white">
+        <Curves />
+        <div className="anim-glow pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(136,238,158,0.35),transparent)] blur-2xl" />
         <div className="relative mx-auto max-w-6xl px-4 pt-14 text-center sm:pt-20">
-          <p className="anim-rise mx-auto inline-flex items-center gap-2 rounded-full border border-line bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-ink backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Restoranlar için yapay zekalı sipariş platformu
-          </p>
-          <h1
-            className="anim-rise mx-auto mt-6 max-w-5xl text-balance font-display text-[2.6rem] leading-[1.02] font-bold tracking-tight sm:text-7xl"
-            style={{ animationDelay: "80ms" }}
-          >
-            Komisyon ödemeden <span className="bg-gradient-to-r from-[#16ad38] to-[#094413] bg-clip-text text-transparent">kendi müşterinden</span> sipariş al.
+          <h1 className="anim-rise mx-auto max-w-4xl text-[2.35rem] leading-[1.04] font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+            Restoranınıza sıfır komisyonlu kendi sipariş sitenizi kurun.
           </h1>
-          <div className="anim-rise mt-8 flex flex-wrap justify-center gap-3" style={{ animationDelay: "160ms" }}>
-            <Link href="/giris?kayit=1" className="btn-primary rounded-full px-8 py-4 text-base">Ücretsiz başla</Link>
-            <Link href="/#hesapla" className="btn-ghost rounded-full px-8 py-4 text-base">Komisyonunu hesapla</Link>
+          <p className="anim-rise mx-auto mt-6 max-w-2xl text-base text-white/80 sm:text-xl" style={{ animationDelay: "100ms" }}>
+            Aracı platformlara devasa komisyonlar vermekten kurtulun. Yapay zeka destekli akıllı web siteniz ve otopilot
+            pazarlama sisteminizle kendi müdavimlerinizi yaratın.
+          </p>
+          <div className="anim-rise mt-8 flex flex-wrap justify-center gap-3" style={{ animationDelay: "180ms" }}>
+            <Link href="/giris?kayit=1" className="btn rounded-full bg-white px-7 py-3.5 text-base text-brand hover:bg-accent-soft">
+              Ücretsiz başla
+            </Link>
+            <Link href="/nasil-calisir" className="btn rounded-full px-7 py-3.5 text-base text-white ring-1 ring-white/40 hover:bg-white/10">
+              Nasıl çalışır?
+            </Link>
           </div>
         </div>
-
-        <div className="relative mx-auto mt-14 max-w-6xl px-4 pb-20">
-          <div className="anim-rise relative flex justify-center" style={{ animationDelay: "240ms" }}>
-            <div className="absolute top-24 left-0 hidden lg:block">
-              <div className="anim-floaty">
-                <SearchRank compact />
-              </div>
-            </div>
-            <HeroPhone />
-            <div className="absolute top-16 right-4 hidden lg:block">
-              <OrderToast />
-            </div>
-            <div className="absolute right-0 bottom-24 hidden w-[250px] lg:block">
-              <div className="anim-floaty rounded-2xl bg-ink p-4 text-white shadow-xl" style={{ animationDelay: "1.2s" }}>
-                <p className="text-[11px] text-accent-soft">Yapay zeka</p>
-                <p className="mt-1 text-sm">12 müşterin 30 gündür gelmedi. Onlara %15 indirim gönderelim mi?</p>
-              </div>
-            </div>
-          </div>
-          {/* Telefonda Google kartı telefonun altında */}
-          <div className="mt-8 flex justify-center lg:hidden">
-            <SearchRank compact />
-          </div>
+        <div className="anim-rise relative mt-12 px-4 pb-12 sm:mt-16 sm:pb-16" style={{ animationDelay: "260ms" }}>
+          <HeroProblem />
         </div>
       </section>
 
-      <FeatureBand />
-
-      {/* 2. Sorun */}
-      <section className="bg-bg">
-        <div className="mx-auto max-w-6xl px-4 py-24">
-          <Reveal>
-            <SectionHead
-              eyebrow="Sorun"
-              title="Sen çalışıyorsun, platform kazanıyor."
-              sub="Yemeği sen yapıyorsun, kuryeyi sen gönderiyorsun. Ama 500 liralık siparişin 100 lirası platforma gidiyor."
-            />
-          </Reveal>
-          <Reveal delay={100} className="mt-12">
-            <CommissionSplit />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 3. Etkileşimli menü (Popmenu tarzı) */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 lg:grid-cols-2">
+      {/* 2. Dört fayda */}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         <Reveal>
-          <Eyebrow>Sipariş sitesi</Eyebrow>
-          <h2 className="font-display text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
-            Müşteri seni arar, seni bulur, senden sipariş verir.
-          </h2>
-          <ul className="mt-8 space-y-5">
-            {MENU_POINTS.map(([t, d]) => (
-              <li key={t} className="flex gap-3">
-                <Check />
-                <div>
-                  <p className="font-display text-lg font-bold">{t}</p>
-                  <p className="text-muted">{d}</p>
-                </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
+              Daha fazla Google trafiği, daha fazla çevrimiçi sipariş, daha fazla tekrarlayan müşteri.
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={120} className="mt-12">
+          <BenefitGrid />
+        </Reveal>
+      </section>
+
+      {/* 3. Empati + örnek hesaplar */}
+      <section className="overflow-hidden bg-[#f3f3ef] py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-4">
+          <Reveal>
+            <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+              <h2 className="text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
+                Bir restoran işletmenin ne kadar zor olduğunu biliyoruz.
+              </h2>
+              <p className="text-lg text-muted">
+                Yemek kalitesine ve operasyona odaklanırken komisyon ve satışlar arasında boğulmamalısınız.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="mt-16 flex flex-wrap items-end justify-between gap-3">
+              <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">Birçok restoran satışlarını artırdı.</h3>
+              <p className="text-sm text-muted">Kendi sitesine geçen her sipariş, komisyon kadar kâr demek.</p>
+            </div>
+          </Reveal>
+        </div>
+        <div className="mt-8">
+          <ProofMarquee />
+        </div>
+        <p className="mx-auto mt-6 max-w-6xl px-4 text-xs text-muted">
+          Örnek hesaplar %20 platform komisyonu ve belirtilen ortalama sepetle yapılmıştır. Pilot restoranlarımızın sonuçlarını burada paylaşacağız.
+        </p>
+      </section>
+
+      {/* 4. Büyük markaların sistemi, 3 adım alt alta */}
+      <section className="relative overflow-hidden bg-[#062e0d] text-white">
+        <Curves />
+        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
+          <Reveal>
+            <h2 className="max-w-3xl text-3xl leading-[1.08] font-bold tracking-tight text-balance sm:text-5xl">
+              Büyük markaların kurduğu çevrimiçi sipariş sistemiyle satışlarınızı artırın.
+            </h2>
+          </Reveal>
+          <ol className="relative mt-14 space-y-14 sm:space-y-20">
+            <div className="absolute top-2 bottom-2 left-[19px] w-px bg-gradient-to-b from-accent via-accent/40 to-transparent sm:left-[23px]" />
+            {STEPS.map(({ t, d, V }, i) => (
+              <li key={t} className="relative grid gap-8 pl-14 sm:pl-20 lg:grid-cols-2 lg:items-start">
+                <span className="absolute top-0 left-0 grid h-10 w-10 place-items-center rounded-full bg-accent text-lg font-bold shadow-[0_0_0_8px_rgba(22,173,56,0.15)] sm:h-12 sm:w-12">
+                  {i + 1}
+                </span>
+                <Reveal className="sm:pt-1">
+                  <h3 className="text-2xl font-bold tracking-tight sm:text-4xl">{t}</h3>
+                  <p className="mt-3 max-w-md text-lg text-white/70">{d}</p>
+                </Reveal>
+                <Reveal delay={120}>
+                  <V />
+                </Reveal>
               </li>
             ))}
-          </ul>
-        </Reveal>
-        <Reveal delay={120}>
-          <div className="rounded-[32px] bg-gradient-to-br from-[#eafbe9] to-white p-6 ring-1 ring-line sm:p-10">
-            <SearchRank />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* 4. Yapay zeka */}
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:44px_44px]" />
-        <div className="relative mx-auto max-w-6xl px-4 py-24">
-          <Reveal>
-            <p className="mb-3 text-sm font-semibold tracking-wide text-accent-soft uppercase">Yapay zeka</p>
-            <h2 className="max-w-2xl font-display text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
-              Yapay zeka çalışır, müşterin geri gelir.
-            </h2>
-            <p className="mt-4 max-w-xl text-lg text-white/70">
-              Menünü fotoğraftan okur, siteni kurar. Gelmeyen müşteriyi bulur, ona ne yazacağını bilir.
-            </p>
-          </Reveal>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <Reveal>
-              <p className="mb-3 text-sm font-semibold text-white/70">Menünün fotoğrafından 10 dakikada site</p>
-              <MenuScan />
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="mb-3 text-sm font-semibold text-white/70">Kendi kendine çalışan SMS kampanyası</p>
-              <AiSms />
-            </Reveal>
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* 5. Panel */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 lg:grid-cols-[1fr_1.2fr]">
-        <Reveal>
-          <Eyebrow>Canlı panel</Eyebrow>
-          <h2 className="font-display text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
-            Neyin işe yaradığını anında gör.
-          </h2>
-          <p className="mt-4 text-lg text-muted">
-            Siparişler düştüğü an ekranında. Hangi müşterinin QR karttan, Google&apos;dan ya da kampanyadan geldiğini, cebinde ne kadar komisyon kaldığını görürsün.
-          </p>
-        </Reveal>
-        <Reveal delay={120}>
-          <LiveOrders />
-        </Reveal>
-      </section>
-
-      {/* 6. Plan */}
-      <section className="bg-bg">
-        <div className="mx-auto max-w-6xl px-4 py-24">
+      {/* 5. Üç ilke */}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-[280px_1fr]">
           <Reveal>
-            <SectionHead center eyebrow="Nasıl çalışır?" title="Üç adımda kendi siparişini almaya başla." />
+            <div className="lg:sticky lg:top-24">
+              <p className="text-sm font-bold tracking-wide text-accent uppercase">İnandıklarımız</p>
+              <div className="mt-6 flex items-center gap-4">
+                <span className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-[#16ad38] to-[#094413] text-2xl font-bold text-white">B</span>
+                <div>
+                  <p className="font-bold">Bora</p>
+                  <p className="text-sm text-muted">Kurucu, SiparişAI</p>
+                </div>
+              </div>
+            </div>
           </Reveal>
-          <ol className="relative mt-14 grid gap-6 md:grid-cols-3">
-            <div className="absolute top-6 right-[16%] left-[16%] hidden h-px bg-gradient-to-r from-accent/0 via-accent to-accent/0 md:block" />
-            {STEPS.map((s, i) => (
-              <Reveal key={s.t} delay={i * 150}>
-                <li className="relative text-center">
-                  <span className="relative mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand font-display text-lg font-bold text-white ring-8 ring-bg">
-                    {i + 1}
-                  </span>
-                  <h3 className="mt-5 font-display text-xl font-bold">{s.t}</h3>
-                  <p className="mx-auto mt-2 max-w-xs text-muted">{s.d}</p>
+          <ol className="divide-y divide-line">
+            {BELIEFS.map((b, i) => (
+              <Reveal key={b.t} delay={i * 100}>
+                <li className="grid gap-4 py-8 first:pt-0 sm:grid-cols-[80px_1fr]">
+                  <span className="bg-gradient-to-b from-[#16ad38] to-[#094413] bg-clip-text text-6xl leading-none font-bold text-transparent">{i + 1}</span>
+                  <div>
+                    <h3 className="text-2xl leading-tight font-bold tracking-tight sm:text-4xl">{b.t}</h3>
+                    <p className="mt-3 max-w-2xl text-lg text-muted">{b.d}</p>
+                  </div>
                 </li>
               </Reveal>
             ))}
           </ol>
-          <div className="mt-12 text-center">
-            <Link href="/giris?kayit=1" className="btn-primary rounded-full px-8 py-4 text-base">Ücretsiz başla</Link>
-          </div>
         </div>
       </section>
 
-      {/* 7. Hesaplayıcı */}
-      <section id="hesapla" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-24">
-        <Reveal>
-          <SectionHead eyebrow="Komisyon hesapla" title="Platforma ne kadar ödüyorsun?" sub="Rakamlarını gir, bir yılda komisyona giden parayı gör." />
-        </Reveal>
-        <Reveal delay={100} className="mt-10">
-          <Calculator />
-        </Reveal>
-      </section>
-
-      {/* 8. Fark */}
-      <section className="mx-auto max-w-6xl px-4 pb-24">
-        <Reveal>
-          <SectionHead center eyebrow="Farkı gör" title="Platformda kalmak mı, kendi müşterine sahip olmak mı?" />
-        </Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
-          <Reveal>
-            <div className="h-full rounded-3xl bg-bg p-6 sm:p-8">
-              <p className="font-display text-xl font-bold text-muted">Sadece platformla</p>
-              <ul className="mt-5 space-y-3">
-                {COMPARE.map(([a]) => (
-                  <li key={a} className="flex gap-3 text-muted"><Cross />{a}</li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="h-full rounded-3xl bg-brand p-6 text-white sm:p-8">
-              <p className="font-display text-xl font-bold">SiparişAI ile</p>
-              <ul className="mt-5 space-y-3">
-                {COMPARE.map(([, b]) => (
-                  <li key={b} className="flex gap-3"><Check />{b}</li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 9. SSS */}
-      <section className="bg-bg">
-        <div className="mx-auto max-w-3xl px-4 py-24">
-          <SectionHead center eyebrow="Sık sorulanlar" title="Aklındaki sorular" />
-          <div className="mt-10 divide-y divide-line rounded-3xl bg-white ring-1 ring-line">
-            {FAQ.map(([q, a]) => (
-              <details key={q} className="group px-6 py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold">
-                  {q}
-                  <span className="text-xl text-muted transition group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-muted">{a}</p>
-              </details>
-            ))}
-          </div>
-          <p className="mt-6 text-center text-sm text-muted">
-            Daha fazlası için <Link href="/destek" className="font-semibold text-brand underline">Destek Merkezi</Link>
-          </p>
-        </div>
-      </section>
-
+      {/* 6. Kapanış */}
       <FinalCta />
     </>
   );
