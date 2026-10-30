@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+/* Marka yazı tipi: STK Bureau Sans (lisanslı dosyalar public/fonts içine konur; yoksa yedek yazı tipi kullanılır) */
+@font-face {
+  font-family: "STKBureauSans";
+  src: url("/fonts/STKBureauSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "STKBureauSans";
+  src: url("/fonts/STKBureauSans-Bold.woff2") format("woff2");
+  font-weight: 600 800;
+  font-display: swap;
+}
+
 :root {
   /* SiparişAI marka renkleri: Owner.com paleti (antrasit yazı, koyu yeşil buton, parlak yeşil vurgu) */
   --bg: #f6f7f5;
@@ -27,8 +41,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
-  --font-sans: var(--font-body);
-  --font-display: var(--font-head);
+  --font-sans: "STKBureauSans", var(--font-body);
+  --font-display: "STKBureauSans", var(--font-head);
 }
 
 body {
@@ -59,4 +73,41 @@ body {
 }
 @utility h1 {
   @apply font-display text-2xl font-bold tracking-tight;
+}
+
+/* ───────── Tanıtım sitesi animasyonları ───────── */
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@keyframes tap { 0% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.4); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes scan { 0% { top: 4%; } 100% { top: 92%; } }
+@keyframes glow { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.9; } }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes caret { 50% { opacity: 0; } }
+@keyframes reveal-text { to { clip-path: inset(0 0 0 0); } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-14px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@utility anim-rise { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@utility anim-pop { animation: pop 0.45s ease-out; }
+@utility anim-tap { animation: tap 0.7s ease-out forwards; }
+@utility anim-marquee { animation: marquee 32s linear infinite; }
+@utility anim-scan { animation: scan 2.6s ease-in-out infinite alternate; }
+@utility anim-glow { animation: glow 4s ease-in-out infinite; }
+@utility anim-floaty { animation: floaty 5s ease-in-out infinite; }
+@utility anim-caret { animation: caret 1s step-end infinite; }
+@utility anim-slide-in { animation: slideIn 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(44 44 44 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(44 44 44 / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
 }

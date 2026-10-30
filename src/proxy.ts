@@ -5,7 +5,7 @@ const ROOT = (process.env.NEXT_PUBLIC_ROOT_DOMAIN ?? "localhost:3000").toLowerCa
 const RESERVED = new Set(["www", "app", "panel", "api"]);
 
 /**
- * 1) kervanpide.siparisai.com  → /r/kervanpide
+ * 1) ornek.siparisai.com  → /r/ornek
  * 2) restoranin-kendi-adresi.com → /r/~restoranin-kendi-adresi.com
  * 3) /panel/* için Supabase oturumunu yeniler.
  */

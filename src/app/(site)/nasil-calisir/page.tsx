@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { FinalCta, PageHero } from "@/components/site/Blocks";
+import Reveal from "@/components/site/Reveal";
+import { MenuScan, AiSms } from "@/components/site/Animations";
 
 export const metadata: Metadata = { title: "Nasıl çalışır · SiparişAI" };
 
@@ -46,13 +48,17 @@ export default function NasilCalisir() {
               <span className="absolute -left-[49px] grid h-8 w-8 place-items-center rounded-full bg-accent font-display font-bold text-white">
                 {i + 1}
               </span>
+              <Reveal delay={i * 80}>
               <div className="rounded-2xl p-6 ring-1 ring-line">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h2 className="font-display text-xl font-bold">{s.t}</h2>
                   <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-brand">{s.time}</span>
                 </div>
                 <p className="mt-2 text-muted">{s.d}</p>
+                {i === 1 && <div className="mt-5"><MenuScan /></div>}
+                {i === 4 && <div className="mt-5"><AiSms /></div>}
               </div>
+              </Reveal>
             </li>
           ))}
         </ol>

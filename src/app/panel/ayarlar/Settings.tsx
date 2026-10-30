@@ -101,7 +101,7 @@ export default function Settings({ restaurant, url }: { restaurant: Restaurant; 
             onChange={(v) => set("sms_footer", v)} placeholder="Ret için RET yazıp 3xxx'e gönderin. Mersis: ..." />
           <div>
             <Text label="Kendi alan adın (isteğe bağlı)" value={r.custom_domain ?? ""}
-              onChange={(v) => set("custom_domain", v)} placeholder="kervanpide.com" />
+              onChange={(v) => set("custom_domain", v)} placeholder="restoraniniz.com" />
             <p className="mt-1 text-xs text-muted">
               Alan adının DNS ayarında <b>CNAME</b> kaydını <b>cname.vercel-dns.com</b> adresine yönlendir.
               Sonra bu adresi barındırma panelinde (Vercel) eklememiz gerekir; destekten iste.

@@ -6,7 +6,7 @@ export default function Footer() {
   const cols = NAV.filter((n) => n.children);
   return (
     <footer className="bg-ink text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-3">
         <div>
           <Logo light />
           <p className="mt-3 max-w-xs text-sm text-white/60">
@@ -26,10 +26,11 @@ export default function Footer() {
           </div>
         ))}
         <div>
-          <p className="mb-3 text-sm font-semibold">Şirket</p>
+          <p className="mb-3 text-sm font-semibold">Ürün</p>
           <ul className="space-y-2 text-sm text-white/60">
-            <li><Link href="/nasil-calisir" className="hover:text-white">Nasıl çalışır</Link></li>
-            <li><Link href="/fiyatlar" className="hover:text-white">Fiyatlar</Link></li>
+            {NAV.filter((n) => n.href).map((n) => (
+              <li key={n.href}><Link href={n.href!} className="hover:text-white">{n.label}</Link></li>
+            ))}
             <li><Link href="/giris" className="hover:text-white">Giriş yap</Link></li>
           </ul>
         </div>

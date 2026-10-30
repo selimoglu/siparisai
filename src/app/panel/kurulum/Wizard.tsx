@@ -48,7 +48,7 @@ export default function Wizard({ userId, restaurant }: { userId: string; restaur
       {!r ? (
         <form onSubmit={create} className="card space-y-4">
           <h1 className="h1">Restoranını tanıt</h1>
-          <Field label="Restoran adı" required value={form.name} onChange={(v) => set("name", v)} placeholder="Kervan Pide Salonu" />
+          <Field label="Restoran adı" required value={form.name} onChange={(v) => set("name", v)} placeholder="Restoranınızın adı" />
           <div>
             <label className="label">Site adresin</label>
             <div className="flex items-center gap-1 text-sm">
