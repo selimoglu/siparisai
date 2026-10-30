@@ -22,7 +22,7 @@ export default function Blog() {
             <Link href={`/blog/${p.slug}`} className="group flex h-full flex-col rounded-3xl p-6 ring-1 ring-line transition hover:bg-bg hover:ring-accent">
               <div className="mb-5 h-36 rounded-2xl bg-gradient-to-br from-[#16ad38] via-[#0f8f28] to-[#094413]" />
               <p className="text-xs text-muted">{dateTr(p.date)} · {p.minutes} dk okuma</p>
-              <h2 className="mt-2 font-display text-xl leading-snug font-bold">{p.title}</h2>
+              <h2 className="mt-2 font-display text-xl leading-snug font-semibold">{p.title}</h2>
               <p className="mt-2 flex-1 text-muted">{p.excerpt}</p>
               <span className="mt-4 text-sm font-semibold text-brand group-hover:underline">Oku →</span>
             </Link>

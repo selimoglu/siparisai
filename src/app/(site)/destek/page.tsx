@@ -10,7 +10,7 @@ export default function Destek() {
       <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)]" />
       <div className="relative mx-auto max-w-4xl px-4 py-16 sm:py-24">
         <p className="mb-3 text-center text-sm font-semibold tracking-wide text-accent uppercase">Destek Merkezi</p>
-        <h1 className="text-center font-display text-4xl font-bold tracking-tight sm:text-6xl">Nasıl yardımcı olabiliriz?</h1>
+        <h1 className="text-center font-display text-[34px] font-medium tracking-[-0.03em] sm:text-[52px]">Nasıl yardımcı olabiliriz?</h1>
         <HelpCenter />
         {CONTACT_EMAIL && (
           <p className="mt-12 text-center text-muted">

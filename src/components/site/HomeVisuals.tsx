@@ -65,7 +65,7 @@ function RepeatViz({ on }: { on: boolean }) {
 function ProfitViz({ on }: { on: boolean }) {
   return (
     <div className="flex h-[168px] flex-col justify-center">
-      <p className="text-7xl font-bold tracking-tighter text-white sm:text-8xl">%0</p>
+      <p className="text-7xl font-medium tracking-tighter text-white">%0</p>
       <p className="text-sm text-white/70">sipariş başına komisyon</p>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/15">
         <div className="h-full rounded-full bg-accent-soft transition-all duration-[1400ms]" style={{ width: on ? "100%" : "0%" }} />
@@ -94,7 +94,7 @@ export function BenefitGrid() {
           <div className="my-6">
             <Viz on={on} />
           </div>
-          <h3 className="text-2xl font-bold tracking-tight">{t}</h3>
+          <h3 className="text-[22px] font-medium tracking-[-0.02em]">{t}</h3>
           <p className={`mt-2 ${cls.includes("brand") ? "text-white/75" : "text-muted"}`}>{d}</p>
         </div>
       ))}
@@ -123,7 +123,7 @@ function ProofCard({ x }: { x: Scenario }) {
     <div className="w-[260px] shrink-0 overflow-hidden rounded-[24px] bg-white ring-1 ring-line sm:w-[300px]">
       <FoodArt kind={x.kind} className="h-28 w-full" />
       <div className="p-5">
-        <p className="text-3xl font-bold tracking-tight text-brand">+{tl(yearly(x))}</p>
+        <p className="text-3xl font-medium tracking-[-0.02em] text-brand">+{tl(yearly(x))}</p>
         <p className="text-sm font-semibold">yıllık ek kâr</p>
         <p className="mt-3 text-sm text-muted">
           {x.type} · ayda {x.orders} platform siparişinin %{x.share}&apos;i kendi sitesine geçerse

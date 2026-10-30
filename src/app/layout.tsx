@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 
-const head = Bricolage_Grotesque({ variable: "--font-head", subsets: ["latin", "latin-ext"] });
-const body = Figtree({ variable: "--font-body", subsets: ["latin", "latin-ext"] });
+// STK Bureau Sans dosyaları gelene kadar ona en yakın sade grotesk: Inter Tight
+const head = Inter_Tight({ variable: "--font-head", subsets: ["latin", "latin-ext"] });
+const body = Inter_Tight({ variable: "--font-body", subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
   title: "SiparişAI",

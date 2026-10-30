@@ -23,7 +23,7 @@ export default function Kariyer() {
         {WHY.map(([t, d], i) => (
           <Reveal key={t} delay={i * 120}>
             <div className="h-full rounded-3xl bg-bg p-6">
-              <h2 className="font-display text-xl font-bold">{t}</h2>
+              <h2 className="font-display text-xl font-semibold">{t}</h2>
               <p className="mt-2 text-muted">{d}</p>
             </div>
           </Reveal>

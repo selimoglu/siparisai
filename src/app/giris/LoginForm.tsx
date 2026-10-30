@@ -41,7 +41,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={submit} className="card space-y-4">
       <div>
-        <p className="font-display text-xl font-bold">
+        <p className="font-display text-xl font-semibold">
           Sipariş<span className="text-accent">AI</span>
         </p>
         <h1 className="mt-4 font-display text-2xl font-bold">{signup ? "Restoranını ekle" : "Giriş yap"}</h1>

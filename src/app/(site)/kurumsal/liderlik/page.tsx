@@ -32,7 +32,7 @@ export default function Liderlik() {
                   {m.name[0]}
                 </span>
               )}
-              <h2 className="mt-5 font-display text-xl font-bold">{m.name}</h2>
+              <h2 className="mt-5 font-display text-xl font-semibold">{m.name}</h2>
               <p className="text-sm font-semibold text-accent">{m.role}</p>
               <p className="mt-3 text-muted">{m.bio}</p>
             </div>

@@ -42,7 +42,7 @@ export default function Calculator() {
       </div>
       <div className="flex flex-col justify-center rounded-2xl bg-white/10 p-6 ring-1 ring-white/15">
         <p className="text-sm text-accent-soft">Platforma ödediğin komisyon</p>
-        <p className="mt-1 font-display text-4xl font-bold sm:text-5xl">{tl(monthly)}<span className="text-xl text-white/70"> / ay</span></p>
+        <p className="mt-1 font-display text-4xl font-medium tracking-[-0.03em] sm:text-5xl">{tl(monthly)}<span className="text-xl text-white/70"> / ay</span></p>
         <p className="mt-2 text-white/80">Yılda <strong className="text-white">{tl(monthly * 12)}</strong>.</p>
         <p className="mt-4 text-sm text-white/70">
           Bu siparişlerin her biri kendi sitenden gelse, bu paranın tamamı sende kalırdı.

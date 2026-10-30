@@ -6,7 +6,7 @@ import { NAV } from "./nav";
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className={`font-display text-xl font-bold tracking-tight ${light ? "text-white" : "text-ink"}`}>
+    <Link href="/" className={`font-display text-xl font-semibold tracking-tight ${light ? "text-white" : "text-ink"}`}>
       Sipariş<span className="text-accent">AI</span>
     </Link>
   );
@@ -37,7 +37,7 @@ export default function Header() {
                   type="button"
                   aria-expanded={drop === item.label}
                   onClick={() => setDrop(drop === item.label ? null : item.label)}
-                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-bold text-ink hover:bg-bg"
+                  className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-[15px] font-bold text-ink hover:bg-bg"
                 >
                   {item.label}
                   <Chevron />
@@ -64,7 +64,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 href={item.href!}
-                className="rounded-lg px-3 py-2 text-sm font-bold text-ink hover:bg-bg"
+                className="rounded-lg px-3 py-2 text-[15px] font-bold text-ink hover:bg-bg"
               >
                 {item.label}
               </Link>
@@ -76,7 +76,7 @@ export default function Header() {
           <Link href="/giris" className="rounded-lg px-3 py-2 text-sm font-semibold text-ink hover:bg-bg">
             Giriş yap
           </Link>
-          <Link href="/giris?kayit=1" className="btn-primary rounded-full px-5">
+          <Link href="/giris?kayit=1" className="btn-dark rounded-full px-5 py-3">
             Ücretsiz başla
           </Link>
         </div>

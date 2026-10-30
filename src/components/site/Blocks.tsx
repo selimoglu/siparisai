@@ -11,7 +11,7 @@ export function SectionHead({
   return (
     <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="font-display text-3xl leading-tight font-bold tracking-tight sm:text-4xl">{title}</h2>
+      <h2 className="font-display text-[28px] leading-[1.1] font-medium tracking-[-0.03em] sm:text-[40px]">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted">{sub}</p>}
     </div>
   );
@@ -37,9 +37,9 @@ export function Ctas({ secondary = { label: "Komisyonunu hesapla", href: "/#hesa
 export function PageHero({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <section className="bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="max-w-3xl font-display text-4xl leading-[1.05] font-bold tracking-tight sm:text-6xl">{title}</h1>
+        <h1 className="max-w-3xl font-display text-[34px] leading-[1.08] font-medium tracking-[-0.03em] sm:text-[52px]">{title}</h1>
         <p className="mt-5 max-w-2xl text-lg text-muted">{sub}</p>
         <div className="mt-8">
           <Ctas />
@@ -68,7 +68,7 @@ export function FinalCta() {
         ))}
       </svg>
       <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-16 text-center sm:pt-28">
-        <h2 className="mx-auto max-w-3xl text-4xl leading-[1.05] font-bold tracking-tight text-balance sm:text-6xl">
+        <h2 className="mx-auto max-w-3xl text-[32px] leading-[1.08] font-medium tracking-[-0.03em] text-balance sm:text-[52px]">
           Restoran satışlarınızı artırmanın en kolay yolu.
         </h2>
         <div className="mt-8">

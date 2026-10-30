@@ -322,7 +322,7 @@ export default function OrderSite({ restaurant: r, categories, items, popularIds
           <form onSubmit={order} onClick={(e) => e.stopPropagation()}
             className="max-h-[92vh] w-full max-w-lg space-y-4 overflow-y-auto rounded-t-3xl bg-surface p-5 sm:rounded-3xl">
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-xl font-bold">Sepetim</h2>
+              <h2 className="font-display text-xl font-semibold">Sepetim</h2>
               <button type="button" onClick={() => setOpen(false)} className="text-muted">Kapat</button>
             </div>
             <ul className="divide-y divide-line text-sm">

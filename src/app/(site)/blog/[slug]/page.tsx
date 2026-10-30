@@ -22,7 +22,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <>
       <article className="mx-auto max-w-2xl px-4 py-16 sm:py-24">
         <Link href="/blog" className="text-sm font-semibold text-brand">← Blog</Link>
-        <h1 className="mt-6 font-display text-4xl leading-tight font-bold tracking-tight sm:text-5xl">{p.title}</h1>
+        <h1 className="mt-6 font-display text-[32px] leading-[1.1] font-medium tracking-[-0.03em] sm:text-[44px]">{p.title}</h1>
         <p className="mt-4 text-lg text-muted">{p.excerpt}</p>
         <p className="mt-2 text-sm text-muted">{p.minutes} dk okuma</p>
         <div className="mt-10 space-y-5 text-lg leading-relaxed text-ink/85">

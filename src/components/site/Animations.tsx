@@ -194,11 +194,11 @@ export function AiSms() {
       <div className={`mt-4 grid grid-cols-2 gap-3 transition-all duration-500 ${s >= 4 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
         <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/15">
           <p className="text-[11px] text-white/70">Geri dönen müşteri</p>
-          <p className="font-display text-xl font-bold">9 kişi</p>
+          <p className="font-display text-xl font-semibold">9 kişi</p>
         </div>
         <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/15">
           <p className="text-[11px] text-white/70">Kampanyadan ciro</p>
-          <p className="font-display text-xl font-bold">3.870 ₺</p>
+          <p className="font-display text-xl font-semibold">3.870 ₺</p>
         </div>
       </div>
     </div>
