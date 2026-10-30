@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
-/* Marka yazı tipi: STK Bureau Sans (lisanslı dosyalar public/fonts içine konur; yoksa yedek yazı tipi kullanılır) */
+/* Marka yazı tipi: STK Bureau Sans. Lisanslı .woff2 dosyaları gelince public/fonts içine konup buraya url(...) olarak eklenecek.
+   Dosya yokken url eklemek her sayfada 404 hatası üretir. */
 @font-face {
   font-family: "STKBureauSans";
-  src: url("/fonts/STKBureauSans-Regular.woff2") format("woff2");
+  src: local("STK Bureau Sans"), local("STKBureauSans-Regular");
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "STKBureauSans";
-  src: url("/fonts/STKBureauSans-Bold.woff2") format("woff2");
+  src: local("STK Bureau Sans Bold"), local("STKBureauSans-Bold");
   font-weight: 600 800;
   font-display: swap;
 }
