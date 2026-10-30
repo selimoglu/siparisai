@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* SiparişAI marka renkleri: Owner.com'un siyah-beyaz, sade paleti */
-  --bg: #f8f8f8;
+  /* SiparişAI marka renkleri: Owner.com paleti (antrasit yazı, koyu yeşil buton, parlak yeşil vurgu) */
+  --bg: #f6f7f5;
   --surface: #ffffff;
-  --ink: #080808;
-  --muted: #888888;
-  --line: #d8d8d8;
-  --brand: #080808;
+  --ink: #2c2c2c;
+  --muted: #6b6b6b;
+  --line: #e4e6e2;
+  --brand: #094413;
   --brand-ink: #ffffff;
+  --accent: #16ad38;
+  --accent-soft: #88ee9e;
   --ok: #15803d;
   --warn: #b45309;
 }
@@ -21,6 +23,8 @@
   --color-line: var(--line);
   --color-brand: var(--brand);
   --color-brand-ink: var(--brand-ink);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --font-sans: var(--font-body);
@@ -37,6 +41,9 @@ body {
 }
 @utility btn-primary {
   @apply btn bg-brand text-brand-ink hover:brightness-110;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-white hover:brightness-125;
 }
 @utility btn-ghost {
   @apply btn border border-line bg-surface hover:bg-bg;

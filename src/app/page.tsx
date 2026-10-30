@@ -5,7 +5,7 @@ export default function Home() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
       <nav className="mb-16 flex items-center justify-between">
         <span className="font-display text-xl font-bold">
-          Sipariş<span className="text-brand">AI</span>
+          Sipariş<span className="text-accent">AI</span>
         </span>
         <Link href="/giris" className="btn-ghost">Giriş yap</Link>
       </nav>
@@ -19,10 +19,18 @@ export default function Home() {
           kendisi mesaj atar, onu geri getirir.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/giris?kayit=1" className="btn-primary px-6 py-3 text-base">Ücretsiz başla</Link>
+          <Link href="/giris?kayit=1" className="btn-dark px-6 py-3 text-base">Ücretsiz başla</Link>
+          <Link href="/giris" className="btn-primary px-6 py-3 text-base">Panele gir</Link>
         </div>
       </section>
-      <section className="mt-20 grid gap-4 sm:grid-cols-3">
+      <section className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-[#16ad38] via-[#0f8f28] to-[#094413] p-8 text-white sm:p-12">
+        <p className="text-sm font-semibold text-accent-soft">Platform siparişlerinde</p>
+        <p className="mt-2 font-display text-4xl font-bold sm:text-5xl">Her siparişte %18–22 komisyon</p>
+        <p className="mt-3 max-w-xl text-white/80">
+          Müşterini kendi sitene taşı, bu para cebinde kalsın. Doğrudan gelen her sipariş senin.
+        </p>
+      </section>
+      <section className="mt-10 grid gap-4 sm:grid-cols-3">
         {[
           ["Komisyonsuz sipariş", "Kendi adınla site. Müşteri sana sipariş verir, %20 komisyon cebinde kalır."],
           ["Müşteri listesi", "Her siparişte müşteri ve kampanya izni kaydedilir. Liste senin olur."],

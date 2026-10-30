@@ -13,7 +13,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       <header className="sticky top-0 z-20 border-b border-line bg-surface/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
           <Link href="/panel" className="font-display text-lg font-bold">
-            Sipariş<span className="text-brand">AI</span>
+            Sipariş<span className="text-accent">AI</span>
           </Link>
           {restaurant && <span className="hidden truncate text-sm text-muted sm:inline">{restaurant.name}</span>}
           <div className="ml-auto flex items-center gap-2">
