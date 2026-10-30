@@ -19,6 +19,9 @@ export type Restaurant = {
   published: boolean;
   custom_domain: string | null;
   sms_footer: string | null;
+  logo_url: string | null;
+  cover_url: string | null;
+  tagline: string | null;
 };
 
 export type Category = { id: string; restaurant_id: string; name: string; position: number };

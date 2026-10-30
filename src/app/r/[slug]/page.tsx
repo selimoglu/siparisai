@@ -15,11 +15,17 @@ const load = cache(async (raw: string) => {
   const q = supabase.from("restaurants").select("*").eq("published", true);
   const { data: r } = await (key.startsWith("~") ? q.eq("custom_domain", key.slice(1)) : q.eq("slug", key)).maybeSingle();
   if (!r) return null;
-  const [{ data: cats }, { data: items }] = await Promise.all([
+  const [{ data: cats }, { data: items }, { data: pop }] = await Promise.all([
     supabase.from("menu_categories").select("*").eq("restaurant_id", r.id).order("position"),
     supabase.from("menu_items").select("*").eq("restaurant_id", r.id).eq("available", true).order("position"),
+    supabase.rpc("popular_items", { p_restaurant: r.id, p_limit: 8 }),
   ]);
-  return { restaurant: r as Restaurant, categories: (cats ?? []) as Category[], items: (items ?? []) as MenuItem[] };
+  return {
+    restaurant: r as Restaurant,
+    categories: (cats ?? []) as Category[],
+    items: (items ?? []) as MenuItem[],
+    popularIds: ((pop ?? []) as { item_id: string }[]).map((p) => p.item_id),
+  };
 });
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -28,7 +34,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const r = data.restaurant;
   return {
     title: `${r.name}${r.district ? ` · ${r.district}` : ""} | Online sipariş`,
-    description: r.about ?? `${r.name} menüsü ve online sipariş. Direkt siparişe %${r.direct_discount_pct} indirim.`,
+    description: r.tagline ?? r.about ?? `${r.name} menüsü ve online sipariş. Direkt siparişe %${r.direct_discount_pct} indirim.`,
+    openGraph: r.cover_url ? { images: [r.cover_url] } : undefined,
   };
 }
 
@@ -41,6 +48,7 @@ export default async function Page({ params, searchParams }: Params) {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: r.name,
+    image: r.cover_url ?? undefined,
     telephone: r.phone ?? undefined,
     address: r.address ?? undefined,
     openingHours: r.hours ?? undefined,

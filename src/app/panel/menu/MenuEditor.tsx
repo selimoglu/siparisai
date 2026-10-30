@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { Category, MenuItem } from "@/lib/types";
 import MenuImporter from "@/components/MenuImporter";
+import { uploadMedia } from "@/lib/upload";
 
 export default function MenuEditor(p: { restaurantId: string; categories: Category[]; items: MenuItem[] }) {
   const router = useRouter();
@@ -66,6 +67,15 @@ export default function MenuEditor(p: { restaurantId: string; categories: Catego
           <ul className="divide-y divide-line">
             {items.filter((i) => i.category_id === c.id).map((i) => (
               <li key={i.id} className="flex flex-wrap items-center gap-3 py-2">
+                <label title="Fotoğraf ekle" className="relative grid h-14 w-14 shrink-0 cursor-pointer place-items-center overflow-hidden rounded-lg border border-dashed border-line bg-bg text-lg text-muted hover:border-brand">
+                  {i.image_url ? <img src={i.image_url} alt="" className="h-full w-full object-cover" /> : "📷"}
+                  <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                    const f = e.target.files?.[0];
+                    if (!f) return;
+                    try { await patch(i.id, { image_url: await uploadMedia(p.restaurantId, f, `item-${i.id}`) }); }
+                    catch (x) { setError(x instanceof Error ? x.message : "Fotoğraf yüklenemedi"); }
+                  }} />
+                </label>
                 <div className="min-w-0 flex-1">
                   <p className={`font-medium ${i.available ? "" : "text-muted line-through"}`}>{i.name}</p>
                   {i.description && <p className="truncate text-xs text-muted">{i.description}</p>}

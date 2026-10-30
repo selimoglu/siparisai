@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import QRCode from "qrcode";
 import { createClient } from "@/lib/supabase/client";
 import type { Restaurant } from "@/lib/types";
+import { uploadMedia } from "@/lib/upload";
 
 export default function Settings({ restaurant, url }: { restaurant: Restaurant; url: string }) {
   const router = useRouter();
@@ -28,7 +29,8 @@ export default function Settings({ restaurant, url }: { restaurant: Restaurant; 
       hours: next.hours, primary_color: next.primary_color, delivery_fee: next.delivery_fee, min_order: next.min_order,
       direct_discount_pct: next.direct_discount_pct, accepts_delivery: next.accepts_delivery,
       accepts_pickup: next.accepts_pickup, is_open: next.is_open, published: next.published,
-      sms_footer: next.sms_footer, custom_domain: next.custom_domain?.trim().toLowerCase() || null,
+      sms_footer: next.sms_footer, tagline: next.tagline, logo_url: next.logo_url, cover_url: next.cover_url,
+      custom_domain: next.custom_domain?.trim().toLowerCase() || null,
     }).eq("id", r.id);
     setBusy(false);
     if (error) return setSaved(`Hata: ${error.message}`);
@@ -52,6 +54,18 @@ export default function Settings({ restaurant, url }: { restaurant: Restaurant; 
             </button>
           </div>
           <Toggle label="Şu an sipariş alıyorum" checked={r.is_open} onChange={(v) => set("is_open", v)} />
+        </section>
+
+        <section className="card space-y-4">
+          <h2 className="font-display font-semibold">Görünüm</h2>
+          <div className="grid gap-4 sm:grid-cols-[8rem_1fr]">
+            <ImagePick label="Logo" url={r.logo_url} square
+              onFile={async (f) => save({ logo_url: await uploadMedia(r.id, f, "logo") })} />
+            <ImagePick label="Kapak fotoğrafı (sitenin en üstü)" url={r.cover_url}
+              onFile={async (f) => save({ cover_url: await uploadMedia(r.id, f, "cover") })} />
+          </div>
+          <Text label="Kısa tanıtım cümlesi" value={r.tagline ?? ""} onChange={(v) => set("tagline", v)}
+            placeholder="1987'den beri Kadıköy'ün odun fırınında pidesi" />
         </section>
 
         <section className="card grid gap-4 sm:grid-cols-2">
@@ -107,12 +121,33 @@ export default function Settings({ restaurant, url }: { restaurant: Restaurant; 
         <div className="rounded-2xl border-2 p-4" style={{ borderColor: r.primary_color }}>
           <p className="font-display text-lg font-bold">{r.name}</p>
           <p className="text-sm">Bir dahaki siparişe <b>%{r.direct_discount_pct} indirim</b></p>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           {qr && <img src={qr} alt="QR kod" className="mx-auto my-2 w-40" />}
           <p className="text-xs text-muted">{url.replace(/^https?:\/\//, "")}</p>
         </div>
         {qr && <a href={qr} download={`${r.slug}-qr.png`} className="btn-ghost w-full">QR kodu indir</a>}
       </aside>
+    </div>
+  );
+}
+
+function ImagePick(p: { label: string; url: string | null; square?: boolean; onFile: (f: File) => Promise<void> }) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+  return (
+    <div>
+      <p className="label">{p.label}</p>
+      <label className={`relative flex cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-line bg-bg text-sm text-muted hover:border-brand ${p.square ? "aspect-square" : "aspect-[16/7]"}`}>
+        {p.url ? <img src={p.url} alt="" className="absolute inset-0 h-full w-full object-cover" /> : <span>{busy ? "Yükleniyor…" : "Fotoğraf seç"}</span>}
+        {busy && p.url && <span className="absolute inset-0 grid place-items-center bg-white/70">Yükleniyor…</span>}
+        <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+          const f = e.target.files?.[0];
+          if (!f) return;
+          setBusy(true); setErr(null);
+          try { await p.onFile(f); } catch (x) { setErr(x instanceof Error ? x.message : "Yüklenemedi"); }
+          setBusy(false);
+        }} />
+      </label>
+      {err && <p className="mt-1 text-xs text-red-700">{err}</p>}
     </div>
   );
 }
