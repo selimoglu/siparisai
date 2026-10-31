@@ -25,7 +25,7 @@ export default function Fiyatlar() {
       <section className="mx-auto grid max-w-5xl gap-6 px-4 pb-20 md:grid-cols-2">
         <div className="rounded-3xl bg-brand p-8 text-white">
           <p className="text-sm font-semibold text-accent-soft">Pilot programı</p>
-          <p className="mt-2 font-display text-5xl font-medium tracking-[-0.03em]">Ücretsiz</p>
+          <p className="mt-2 font-display text-5xl font-bold tracking-tight">Ücretsiz</p>
           <p className="mt-3 text-white/75">
             İlk pilot restoranlarımızla birlikte büyüyoruz. Kurulumu biz yapıyoruz, sen sadece sipariş alıyorsun.
           </p>

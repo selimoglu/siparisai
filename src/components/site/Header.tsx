@@ -6,7 +6,7 @@ import { NAV } from "./nav";
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className={`font-display text-xl font-semibold tracking-tight ${light ? "text-white" : "text-ink"}`}>
+    <Link href="/" className={`font-display text-xl font-bold tracking-tight ${light ? "text-white" : "text-ink"}`}>
       Sipariş<span className="text-accent">AI</span>
     </Link>
   );

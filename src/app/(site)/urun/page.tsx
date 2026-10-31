@@ -134,7 +134,7 @@ export default function Urun() {
         <section key={s.id} id={s.id} className={`scroll-mt-16 ${i % 2 === 0 ? "bg-bg" : "bg-white"}`}>
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 lg:grid-cols-2">
             <Reveal className={i % 2 === 1 ? "lg:order-2" : ""}>
-              <h2 className="font-display text-[28px] leading-[1.1] font-medium tracking-[-0.03em] sm:text-[40px]">{s.t}</h2>
+              <h2 className="font-display text-[28px] leading-[1.1] font-bold tracking-tight sm:text-[40px]">{s.t}</h2>
               <p className="mt-4 text-lg text-muted">{s.d}</p>
               <ul className="mt-6 space-y-3">
                 {s.pts.map((p) => (

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import FoodArt from "./FoodArt";
 import { useInView, useSteps } from "./anim";
 
@@ -85,16 +86,19 @@ const BENEFITS = [
 export function BenefitGrid() {
   const [ref, on] = useInView<HTMLDivElement>(0.25);
   return (
-    <div ref={ref} className="grid gap-4 md:grid-cols-2">
+    <div
+      ref={ref}
+      className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
+    >
       {BENEFITS.map(({ tag, t, d, Viz, cls }) => (
-        <div key={tag} className={`flex flex-col rounded-[28px] p-6 sm:p-8 ${cls}`}>
+        <div key={tag} className={`flex w-[84%] shrink-0 snap-center flex-col rounded-[28px] p-6 sm:p-8 md:w-auto ${cls}`}>
           <span className={`self-start rounded-full px-3 py-1 text-xs font-bold ${cls.includes("brand") ? "bg-white/15 text-accent-soft" : "bg-white text-brand"}`}>
             {tag}
           </span>
           <div className="my-6">
             <Viz on={on} />
           </div>
-          <h3 className="text-[22px] font-medium tracking-[-0.02em]">{t}</h3>
+          <h3 className="text-[22px] font-bold tracking-tight">{t}</h3>
           <p className={`mt-2 ${cls.includes("brand") ? "text-white/75" : "text-muted"}`}>{d}</p>
         </div>
       ))}
@@ -123,7 +127,7 @@ function ProofCard({ x }: { x: Scenario }) {
     <div className="w-[260px] shrink-0 overflow-hidden rounded-[24px] bg-white ring-1 ring-line sm:w-[300px]">
       <FoodArt kind={x.kind} className="h-28 w-full" />
       <div className="p-5">
-        <p className="text-3xl font-medium tracking-[-0.02em] text-brand">+{tl(yearly(x))}</p>
+        <p className="text-3xl font-bold tracking-tight text-brand">+{tl(yearly(x))}</p>
         <p className="text-sm font-semibold">yıllık ek kâr</p>
         <p className="mt-3 text-sm text-muted">
           {x.type} · ayda {x.orders} platform siparişinin %{x.share}&apos;i kendi sitesine geçerse
@@ -160,7 +164,7 @@ export function LaunchChecklist() {
   const [ref, inView] = useInView<HTMLDivElement>(0.3);
   const s = useSteps(LAUNCH_DUR, inView, 4);
   return (
-    <div ref={ref} className="rounded-[28px] bg-white p-5 text-ink shadow-2xl shadow-black/20 sm:p-7">
+    <div ref={ref} className="rounded-3xl bg-white p-5 text-ink shadow-xl shadow-black/5 ring-1 ring-line sm:p-6">
       <div className="flex items-center justify-between">
         <p className="font-bold">Yayına alma</p>
         <span className={`rounded-full px-3 py-1 text-xs font-bold transition ${s >= 4 ? "bg-accent text-white" : "bg-bg text-muted"}`}>
@@ -182,6 +186,41 @@ export function LaunchChecklist() {
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+/* ───────── 5. bölüm: inandıklarımız, yana kaydırmalı kartlar (Popmenu tarzı) ───────── */
+export function BeliefCarousel({ items }: { items: { t: string; d: string }[] }) {
+  const track = useRef<HTMLDivElement>(null);
+  const go = (dir: number) => track.current?.scrollBy({ left: dir * track.current.clientWidth * 0.8, behavior: "smooth" });
+  return (
+    <div className="mx-auto max-w-6xl">
+      <div
+        ref={track}
+        className="flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((b, i) => (
+          <div key={b.t} className="w-[80%] shrink-0 snap-start rounded-2xl border border-line bg-white p-6 sm:w-[calc((100%-2rem)/3)] sm:min-w-[300px]">
+            <p className="text-[32px] leading-none font-bold text-accent">{i + 1}</p>
+            <h3 className="mt-4 text-[17px] leading-snug font-bold tracking-tight">{b.t}</h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-muted">{b.d}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-5 flex justify-end gap-2 px-4 sm:hidden">
+        {[-1, 1].map((d) => (
+          <button
+            key={d}
+            type="button"
+            onClick={() => go(d)}
+            aria-label={d < 0 ? "Önceki" : "Sonraki"}
+            className="grid h-10 w-10 place-items-center rounded-full border border-line bg-white text-ink"
+          >
+            {d < 0 ? "←" : "→"}
+          </button>
+        ))}
       </div>
     </div>
   );

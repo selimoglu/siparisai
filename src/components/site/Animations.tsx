@@ -112,15 +112,15 @@ export function LiveOrders() {
   const visible = ORDERS.slice(0, s + 1).reverse();
   const saved = ORDERS.slice(0, s + 1).reduce((a, o) => a + o.total, 0) * 0.2;
   return (
-    <div ref={ref} className="overflow-hidden rounded-3xl bg-white shadow-2xl shadow-black/10 ring-1 ring-line">
+    <div ref={ref} className="flex h-[300px] flex-col overflow-hidden rounded-3xl bg-white shadow-xl shadow-black/5 ring-1 ring-line">
       <div className="flex items-center gap-1.5 border-b border-line bg-bg px-4 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         <span className="ml-3 rounded-md bg-white px-3 py-0.5 text-[11px] text-muted">panel · Siparişler</span>
       </div>
-      <div className="grid gap-3 p-4 sm:grid-cols-[1fr_170px]">
-        <div className="min-h-[260px] space-y-2">
+      <div className="grid min-h-0 flex-1 gap-3 overflow-hidden p-4 sm:grid-cols-[1fr_160px]">
+        <div className="space-y-2 overflow-hidden">
           {visible.map((o, i) => (
             <div
               key={o.no}
@@ -136,7 +136,7 @@ export function LiveOrders() {
             </div>
           ))}
         </div>
-        <div className="space-y-3">
+        <div className="hidden space-y-3 sm:block">
           <div className="rounded-2xl bg-brand p-3 text-white">
             <p className="text-[11px] text-white/70">Bu hafta cebinde kalan komisyon</p>
             <p key={s} className="anim-pop mt-1 font-display text-2xl font-bold">{Math.round(saved).toLocaleString("tr-TR")} ₺</p>
@@ -194,11 +194,11 @@ export function AiSms() {
       <div className={`mt-4 grid grid-cols-2 gap-3 transition-all duration-500 ${s >= 4 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
         <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/15">
           <p className="text-[11px] text-white/70">Geri dönen müşteri</p>
-          <p className="font-display text-xl font-semibold">9 kişi</p>
+          <p className="font-display text-xl font-bold">9 kişi</p>
         </div>
         <div className="rounded-2xl bg-white/10 p-3 ring-1 ring-white/15">
           <p className="text-[11px] text-white/70">Kampanyadan ciro</p>
-          <p className="font-display text-xl font-semibold">3.870 ₺</p>
+          <p className="font-display text-xl font-bold">3.870 ₺</p>
         </div>
       </div>
     </div>
@@ -220,7 +220,7 @@ export function MenuScan() {
   const s = useSteps(SCAN_DUR, inView, 7);
   const found = Math.max(0, Math.min(MENU.length, s));
   return (
-    <div ref={ref} className="grid grid-cols-2 gap-3 rounded-3xl bg-ink p-4 text-white sm:p-6">
+    <div ref={ref} className="grid h-[300px] grid-cols-2 gap-3 overflow-hidden rounded-3xl bg-ink p-4 text-white sm:p-5">
       <div className="relative overflow-hidden rounded-2xl bg-[#f4ecdf] p-3 text-[#3b2a1a]">
         <p className="text-center font-display text-sm font-bold">MENÜ</p>
         <div className="mt-2 space-y-1.5 text-[11px] italic">
@@ -233,7 +233,7 @@ export function MenuScan() {
         </div>
         {s < 7 && <div className="anim-scan absolute inset-x-0 h-0.5 bg-accent shadow-[0_0_16px_4px_rgba(22,173,56,0.6)]" />}
       </div>
-      <div className="rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
+      <div className="overflow-hidden rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
         <p className="text-[11px] text-accent-soft">{s >= 7 ? "Menün hazır ✓" : "Yapay zeka okuyor…"}</p>
         <div className="mt-2 space-y-1.5">
           {MENU.slice(0, found).map(([n, p]) => (

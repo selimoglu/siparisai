@@ -51,7 +51,7 @@ export default function NasilCalisir() {
               <Reveal delay={i * 80}>
               <div className="rounded-2xl p-6 ring-1 ring-line">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="font-display text-xl font-semibold">{s.t}</h2>
+                  <h2 className="font-display text-xl font-bold">{s.t}</h2>
                   <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-brand">{s.time}</span>
                 </div>
                 <p className="mt-2 text-muted">{s.d}</p>

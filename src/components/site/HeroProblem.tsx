@@ -1,12 +1,59 @@
 "use client";
 
+import FoodArt from "./FoodArt";
 import { useInView, useSteps } from "./anim";
 
 /*
  * Ana sayfa ilk bölüm görseli (Owner düzeni): yeşil panelin üstüne taşan telefon.
- * Telefonda önce "Google'da sizi kim geçiyor?" listesi, sonra aşağı kayarak platformda kaybedilen para.
+ * Telefonda önce web sitesi sağlık puanı, sonra "Google'da sizi kim geçiyor?", sonra platformda kaybedilen para.
  */
-const DUR = [2600, 1600, 3800, 700] as const;
+const DUR = [3200, 2400, 1400, 3600, 700] as const;
+const OFFSET = [0, 388, 388, 700, 0];
+
+const SCORES = [
+  { t: "Arama sonuçları", l: "Zayıf", v: 12, max: 40 },
+  { t: "Misafir deneyimi", l: "Orta", v: 18, max: 40 },
+  { t: "Yerel listelemeler", l: "Zayıf", v: 6, max: 20 },
+];
+
+/** Owner'daki turuncu yarım halka puan göstergesi */
+function Gauge({ on }: { on: boolean }) {
+  const r = 62;
+  const arc = 2 * Math.PI * r * 0.75;
+  return (
+    <div className="relative mx-auto h-[150px] w-[150px]">
+      <svg viewBox="0 0 150 150" className="h-full w-full rotate-[135deg]" aria-hidden>
+        <circle cx="75" cy="75" r={r} fill="none" stroke="#ebe7e2" strokeWidth="11" strokeLinecap="round" strokeDasharray={`${arc} 999`} />
+        <circle
+          cx="75" cy="75" r={r} fill="none" stroke="url(#g36)" strokeWidth="11" strokeLinecap="round"
+          strokeDasharray={`${on ? arc * 0.36 : 0} 999`}
+          className="transition-[stroke-dasharray] duration-[1400ms] ease-out"
+        />
+        <defs>
+          <linearGradient id="g36" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#f0a35b" />
+            <stop offset="1" stopColor="#e2652a" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="absolute inset-0 grid place-items-center text-center">
+        <div>
+          <p className="text-[44px] leading-none font-bold tracking-tight">36</p>
+          <p className="text-[11px] text-muted">/ 100</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ring({ pct }: { pct: number }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden className="shrink-0">
+      <circle cx="11" cy="11" r="8" fill="none" stroke="#ebe7e2" strokeWidth="3" />
+      <circle cx="11" cy="11" r="8" fill="none" stroke="#e2652a" strokeWidth="3" strokeLinecap="round" strokeDasharray={`${50.3 * pct} 99`} transform="rotate(-90 11 11)" />
+    </svg>
+  );
+}
 
 const RIVALS = [
   { rank: "1.", n: "Rakip 1", r: "4,8" },
@@ -37,8 +84,8 @@ function Star() {
 
 export default function HeroProblem() {
   const [ref, inView] = useInView<HTMLDivElement>(0.2);
-  const s = useSteps(DUR, inView, 2);
-  const scrolled = s === 2;
+  const s = useSteps(DUR, inView, 0);
+  
 
   return (
     <div ref={ref} className="relative mx-auto max-w-[1280px] pb-8 sm:pb-14" aria-label="Restoranın Google'da rakiplerin altında kalmasını ve platformlarda para kaybetmesini gösteren animasyon">
@@ -67,16 +114,41 @@ export default function HeroProblem() {
 
                 <div
                   className="absolute inset-x-0 top-12 space-y-3 px-3 pt-2 transition-transform duration-[900ms] ease-[cubic-bezier(0.3,0.7,0.2,1)]"
-                  style={{ transform: `translateY(${scrolled ? -300 : 0}px)` }}
+                  style={{ transform: `translateY(-${OFFSET[s]}px)` }}
                 >
+                  {/* Web sitesi sağlığı */}
+                  <div className="rounded-3xl bg-gradient-to-b from-white to-[#fbf1e8] p-4">
+                    <div className="flex items-center gap-2.5">
+                      <FoodArt kind="pide" className="h-9 w-9 overflow-hidden rounded-full" />
+                      <p className="text-[17px] font-bold tracking-tight">Sizin restoranınız</p>
+                    </div>
+                    <div className="mt-2">
+                      <Gauge on={inView} />
+                    </div>
+                    <p className="-mt-3 text-center text-[12px] text-muted">Web sitesi sağlığı</p>
+                    <p className="text-center text-[17px] font-bold text-[#e2652a]">Zayıf</p>
+                    <div className="mt-2 space-y-1.5">
+                      {SCORES.map((x) => (
+                        <div key={x.t} className="flex items-center gap-2.5">
+                          <Ring pct={inView ? x.v / x.max : 0} />
+                          <div className="flex-1">
+                            <p className="text-[12px] leading-tight font-semibold">{x.t}</p>
+                            <p className={`text-[11px] ${x.l === "Orta" ? "text-[#d98a1c]" : "text-[#e2652a]"}`}>{x.l}</p>
+                          </div>
+                          <span className="text-[11px] text-muted">{x.v}/{x.max}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Google sıralaması */}
                   <div className="rounded-3xl bg-white p-4">
-                    <p className="text-[17px] font-semibold tracking-tight">Google&apos;da sizi kim geçiyor?</p>
+                    <p className="text-[17px] font-bold tracking-tight">Google&apos;da sizi kim geçiyor?</p>
                     <div className="mt-3 space-y-1">
                       {RIVALS.map((r, i) => (
                         <div
                           key={r.n}
-                          className={`flex items-center gap-3 py-1.5 ${inView ? "anim-slide-in" : ""}`}
+                          className={`flex items-center gap-3 py-1.5 ${s >= 1 ? "anim-slide-in" : ""}`}
                           style={{ animationDelay: `${i * 150}ms` }}
                         >
                           <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#f2f2ef] text-[13px] text-muted">{r.rank}</span>
@@ -88,7 +160,7 @@ export default function HeroProblem() {
                         </div>
                       ))}
                       <p className="pl-[18px] text-muted">⋮</p>
-                      <div className={`flex items-center gap-3 rounded-2xl px-2 py-2 transition-colors duration-500 ${s >= 1 ? "bg-[#fff0f0]" : "bg-[#f2f2ef]"}`}>
+                      <div className={`flex items-center gap-3 rounded-2xl px-2 py-2 transition-colors duration-500 ${s >= 2 && s <= 3 ? "bg-[#fff0f0]" : "bg-[#f2f2ef]"}`}>
                         <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-[13px] text-muted">10.</span>
                         <div className="flex-1">
                           <p className="text-[15px] font-medium">Sizin restoranınız</p>
@@ -101,7 +173,7 @@ export default function HeroProblem() {
 
                   {/* Platform kaybı */}
                   <div className="rounded-3xl bg-white p-4">
-                    <p className="text-[17px] leading-snug font-semibold tracking-tight">
+                    <p className="text-[17px] leading-snug font-bold tracking-tight">
                       Bu sorunları çözene kadar platformlara her ay <span className="text-[#e5484d]">87.000 ₺</span> kaptırıyorsunuz:
                     </p>
                     <div className="mt-3 space-y-2">

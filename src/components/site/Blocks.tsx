@@ -11,7 +11,7 @@ export function SectionHead({
   return (
     <div className={`max-w-2xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="font-display text-[28px] leading-[1.1] font-medium tracking-[-0.03em] sm:text-[40px]">{title}</h2>
+      <h2 className="font-display text-[28px] leading-[1.1] font-bold tracking-tight sm:text-[40px]">{title}</h2>
       {sub && <p className="mt-4 text-lg text-muted">{sub}</p>}
     </div>
   );
@@ -39,7 +39,7 @@ export function PageHero({ eyebrow, title, sub }: { eyebrow: string; title: stri
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="max-w-3xl font-display text-[34px] leading-[1.08] font-medium tracking-[-0.03em] sm:text-[52px]">{title}</h1>
+        <h1 className="max-w-3xl font-display text-[34px] leading-[1.08] font-bold tracking-tight sm:text-[52px]">{title}</h1>
         <p className="mt-5 max-w-2xl text-lg text-muted">{sub}</p>
         <div className="mt-8">
           <Ctas />
@@ -49,70 +49,89 @@ export function PageHero({ eyebrow, title, sub }: { eyebrow: string; title: stri
   );
 }
 
-function CtaButtons() {
-  return (
-    <div className="flex flex-wrap justify-center gap-3">
-      <Link href="/giris?kayit=1" className="btn-primary rounded-full px-7 py-3.5 text-base">Ücretsiz başla</Link>
-      <Link href="/nasil-calisir" className="btn-ghost rounded-full px-7 py-3.5 text-base">Nasıl çalışır?</Link>
-    </div>
-  );
-}
-
-/** Owner tarzı kapanış: başlık, butonlar, restoran uygulaması görünen telefon, tekrar butonlar. */
+/** Owner tarzı kapanış: yeşil panel, solda başlık ve butonlar, sağda çapraz duran restoran uygulaması. */
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#eaf7ea] to-[#d3f1d6]">
-      <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-60" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden>
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <path key={i} d={`M-50 ${520 + i * 60} C 360 ${300 + i * 60}, 1080 ${760 + i * 40}, 1500 ${420 + i * 60}`} fill="none" stroke="#16ad38" strokeOpacity={0.18} strokeWidth="1.5" />
-        ))}
-      </svg>
-      <div className="relative mx-auto max-w-6xl px-4 pt-20 pb-16 text-center sm:pt-28">
-        <h2 className="mx-auto max-w-3xl text-[32px] leading-[1.08] font-medium tracking-[-0.03em] text-balance sm:text-[52px]">
-          Restoran satışlarınızı artırmanın en kolay yolu.
-        </h2>
-        <div className="mt-8">
-          <CtaButtons />
+    <section className="overflow-x-clip bg-white px-3 pt-20 pb-6 sm:px-6 sm:pt-28 sm:pb-10">
+      <div className="relative mx-auto max-w-[1280px] rounded-[28px] bg-gradient-to-r from-[#0b8a25] via-[#1c9f3f] to-[#5fd07a] sm:rounded-[36px]">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1280 520" preserveAspectRatio="none" aria-hidden>
+            {Array.from({ length: 10 }, (_, i) => (
+              <path key={i} d={`M${-100 + i * 150} 560 Q ${300 + i * 80} 260 ${700 + i * 110} -40`} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="1.2" />
+            ))}
+          </svg>
         </div>
+        <div className="relative grid lg:grid-cols-2">
+          <div className="px-6 pt-12 pb-4 sm:px-12 lg:py-32 lg:pl-20">
+            <h2 className="max-w-[520px] text-[32px] leading-[1.06] font-bold tracking-tight text-balance text-white sm:text-[48px]">
+              Restoran satışlarınızı artırmanın en kolay yolu.
+            </h2>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link href="/giris?kayit=1" className="rounded-xl bg-white px-6 py-3.5 text-[16px] font-bold text-ink transition hover:bg-[#eafbe9]">
+                Ücretsiz başla
+              </Link>
+              <Link href="/nasil-calisir" className="rounded-xl bg-white/25 px-6 py-3.5 text-[16px] font-bold text-white transition hover:bg-white/35">
+                Nasıl çalışır?
+              </Link>
+            </div>
+          </div>
 
-        <div className="mx-auto mt-14 h-[480px] w-[250px] sm:h-[570px] sm:w-[300px]">
-          <div className="origin-top scale-[0.83] sm:scale-100">
-            <div className="w-[300px] rounded-[44px] bg-[#111] p-2 text-left shadow-[0_40px_90px_-30px_rgba(9,68,19,0.55)]">
-              <div className="relative h-[560px] overflow-hidden rounded-[37px] bg-white text-ink">
-                <div className="absolute inset-x-0 top-0 z-10 flex h-8 items-center justify-between px-6 text-[11px] font-semibold text-white">
-                  <span>19:05</span>
-                  <span className="h-[18px] w-[72px] rounded-full bg-[#111]" />
-                  <span>5G</span>
-                </div>
-                <FoodArt kind="burger" className="h-[250px] w-full" />
-                <div className="px-5 pt-4">
-                  <p className="text-[11px] font-semibold text-muted">Sizin restoranınız</p>
-                  <p className="text-xl font-bold tracking-tight">Çıtır tavuk burger</p>
-                  <div className="mt-3 grid grid-cols-2 rounded-full bg-bg p-1 text-center text-[12px] font-semibold">
-                    <span className="rounded-full bg-white py-1.5 shadow-sm">Gel-al</span>
-                    <span className="py-1.5 text-muted">Paket servis</span>
+          {/* Telefon: üstten panelin dışına taşar, altta panelin kenarında kesilir */}
+          <div className="relative h-[380px] [clip-path:inset(-300px_-300px_0_-300px)] lg:h-auto">
+            <div className="absolute top-4 left-[62%] w-[300px] origin-top -translate-x-[50%] scale-[0.78] rotate-[13deg] sm:top-8 sm:left-1/2 sm:origin-center sm:-translate-x-[45%] sm:scale-100 lg:-top-20 lg:left-[42%]">
+              <div className="rounded-[46px] bg-[#111] p-2.5 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.6)]">
+                <div className="relative h-[600px] overflow-hidden rounded-[38px] bg-white text-ink">
+                  <div className="absolute inset-x-0 top-0 z-10 flex h-9 items-center justify-between px-7 text-[12px] font-bold text-white">
+                    <span>19:05</span>
+                    <span className="h-[22px] w-[84px] rounded-full bg-[#111]" />
+                    <span>5G</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between rounded-2xl border border-line px-3 py-2.5 text-[12px]">
-                    <span className="text-muted">Teslim alma</span>
-                    <span className="font-semibold">Bugün 19:30</span>
+                  <div className="relative">
+                    <FoodArt kind="doner" className="h-[190px] w-full" />
+                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent" />
+                    <span className="absolute top-12 left-4 grid h-9 w-9 place-items-center rounded-full bg-white/90">
+                      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+                        <circle cx="8" cy="5" r="3" fill="#2c2c2c" />
+                        <path d="M2 15c0-3.3 2.7-5 6-5s6 1.7 6 5Z" fill="#2c2c2c" />
+                      </svg>
+                    </span>
                   </div>
-                  <div className="mt-3 rounded-2xl bg-[#eaf7ea] p-3">
-                    <p className="text-[12px] font-semibold text-brand">İlk hediyenize 400 puan kaldı</p>
-                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white">
-                      <div className="h-full w-[60%] rounded-full bg-accent" />
+                  <div className="-mt-6 px-5 text-center">
+                    <p className="relative text-[22px] font-bold tracking-tight">Sizin restoranınız</p>
+                    <p className="text-[12px] text-muted">Merkez Mah. No: 12</p>
+                    <p className="mt-0.5 text-[12px] font-semibold text-accent">● 00:00&apos;a kadar açık</p>
+                  </div>
+                  <div className="px-4 pt-4">
+                    <div className="grid grid-cols-2 rounded-2xl bg-[#f2f2ef] p-1 text-center text-[13px] font-semibold">
+                      <span className="rounded-xl bg-white py-2 shadow-sm ring-1 ring-line">Gel-al</span>
+                      <span className="py-2 text-muted">Paket servis</span>
                     </div>
-                  </div>
-                  <div className="mt-3 flex h-11 items-center justify-center rounded-2xl bg-ink text-[13px] font-semibold text-white">
-                    Sipariş ver · 245 ₺
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-[12px] font-semibold">
+                      <span className="flex items-center justify-between rounded-xl bg-[#f2f2ef] px-3 py-2.5">Masa 12 <span className="text-muted">›</span></span>
+                      <span className="flex items-center justify-between rounded-xl bg-[#f2f2ef] px-3 py-2.5">⚡ 30 dk <span className="text-muted">›</span></span>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between">
+                      <p className="text-[15px] font-bold">Puan kazanın</p>
+                      <p className="text-[12px] text-muted">Keşfet ›</p>
+                    </div>
+                    <div className="mt-2 flex items-center gap-3 rounded-2xl bg-[#f6f6f3] p-3">
+                      <FoodArt kind="lahmacun" className="h-11 w-11 shrink-0 rounded-xl" />
+                      <div className="flex-1">
+                        <div className="relative h-1 rounded-full bg-[#e2e2de]">
+                          <div className="absolute inset-y-0 left-0 w-[35%] rounded-full bg-ink" />
+                          <span className="absolute top-1/2 left-[35%] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink" />
+                        </div>
+                        <div className="mt-1.5 flex justify-around text-[10px] font-semibold text-muted">
+                          <span>100</span>
+                          <span>500</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-10">
-          <CtaButtons />
         </div>
       </div>
     </section>

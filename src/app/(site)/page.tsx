@@ -1,10 +1,6 @@
 import HeroProblem from "@/components/site/HeroProblem";
 import Reveal from "@/components/site/Reveal";
-import {
-  BenefitGrid,
-  LaunchChecklist,
-  ProofMarquee,
-} from "@/components/site/HomeVisuals";
+import { BeliefCarousel, BenefitGrid, LaunchChecklist, ProofMarquee } from "@/components/site/HomeVisuals";
 import { LiveOrders, MenuScan } from "@/components/site/Animations";
 import { FinalCta } from "@/components/site/Blocks";
 
@@ -41,203 +37,131 @@ const BELIEFS = [
   },
 ];
 
-function Curves({ className = "" }: { className?: string }) {
+function SearchPill({ className = "" }: { className?: string }) {
   return (
-    <svg
-      className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="none"
-      aria-hidden
+    <form
+      action="/giris"
+      className={`items-center gap-2 rounded-full bg-white p-1.5 pl-5 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.25)] ring-1 ring-line ${className}`}
     >
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-        <path
-          key={i}
-          d={`M-80 ${180 + i * 70} C 420 ${-40 + i * 80}, 980 ${620 + i * 30}, 1520 ${260 + i * 70}`}
-          fill="none"
-          stroke="white"
-          strokeOpacity={0.09}
-          strokeWidth="1.5"
-        />
-      ))}
-    </svg>
+      <input type="hidden" name="kayit" value="1" />
+      <input
+        name="restoran"
+        placeholder="Restoranınızın adı"
+        aria-label="Restoranınızın adı"
+        className="min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-muted"
+      />
+      <button
+        type="submit"
+        aria-label="Sitemi kur"
+        className="flex shrink-0 items-center gap-1.5 rounded-full bg-brand px-4 py-3 text-[15px] font-bold text-white transition hover:bg-[#0b5a19] sm:px-5"
+      >
+        <span className="hidden sm:inline">Sitemi kur</span>
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
+          <path d="M9 15V3M4 8l5-5 5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+    </form>
   );
 }
 
 export default function Home() {
   return (
     <>
-      {/* 1. Owner düzeni: beyaz zemin, ortalı başlık, arama kutusu, yeşil panele taşan telefon */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-4xl px-4 pt-12 text-center sm:pt-20">
-          <h1 className="anim-rise mx-auto max-w-3xl text-[34px] leading-[1.08] font-medium tracking-[-0.03em] text-balance text-ink sm:text-[54px]">
+      {/* 1. Owner düzeni: beyaz zemin, ortalı başlık, yeşil panele taşan telefon. Mobilde arama kutusu telefonun altında yapışık. */}
+      <section className="relative bg-white">
+        <div className="mx-auto max-w-4xl px-4 pt-8 text-center sm:pt-16">
+          <p className="anim-rise text-[15px] text-muted">
+            <span className="font-bold text-ink">%0</span> komisyon · Yapay zeka destekli
+          </p>
+          <h1 className="anim-rise mx-auto mt-3 max-w-3xl text-[34px] leading-[1.08] font-bold tracking-tight text-balance text-ink sm:text-[54px]">
             Restoranınıza sıfır komisyonlu kendi sipariş sitenizi kurun.
           </h1>
           <p
-            className="anim-rise mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-muted sm:text-lg"
+            className="anim-rise mx-auto mt-5 hidden max-w-2xl text-lg leading-relaxed text-muted sm:block"
             style={{ animationDelay: "100ms" }}
           >
-            Aracı platformlara devasa komisyonlar vermekten kurtulun. Yapay zeka
-            destekli akıllı web siteniz ve otopilot pazarlama sisteminizle kendi
-            müdavimlerinizi yaratın.
+            Aracı platformlara devasa komisyonlar vermekten kurtulun. Yapay zeka destekli akıllı web siteniz ve otopilot
+            pazarlama sisteminizle kendi müdavimlerinizi yaratın.
           </p>
-          <form
-            action="/giris"
-            className="anim-rise mx-auto mt-8 flex max-w-[460px] items-center gap-2 rounded-full bg-white p-1.5 pl-5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.2)] ring-1 ring-line"
-            style={{ animationDelay: "180ms" }}
-          >
-            <input type="hidden" name="kayit" value="1" />
-            <input
-              name="restoran"
-              placeholder="Restoranınızın adı"
-              aria-label="Restoranınızın adı"
-              className="min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-brand px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-[#0b5a19]"
-            >
-              Sitemi kur ↗
-            </button>
-          </form>
-          <p className="mt-3 text-[13px] text-muted">
-            Pilot programında ücretsiz. Sipariş başına komisyon yok.
-          </p>
+          <SearchPill className="anim-rise mx-auto mt-8 hidden max-w-[460px] sm:flex" />
         </div>
-        <div
-          className="anim-rise mt-10 px-3 sm:mt-14 sm:px-6"
-          style={{ animationDelay: "260ms" }}
-        >
+        <div className="anim-rise mt-8 px-3 sm:mt-14 sm:px-6" style={{ animationDelay: "200ms" }}>
           <HeroProblem />
+        </div>
+        <div className="sticky bottom-3 z-20 -mt-24 px-4 pb-2 sm:hidden">
+          <SearchPill className="flex" />
         </div>
       </section>
 
-      {/* 2. Dört fayda */}
+      {/* 2. Dört fayda (mobilde yana kaydırmalı) */}
       <section className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-[28px] leading-[1.1] font-medium tracking-[-0.03em] text-balance sm:text-[44px]">
-              Daha fazla Google trafiği, daha fazla çevrimiçi sipariş, daha
-              fazla tekrarlayan müşteri.
+            <h2 className="text-[28px] leading-[1.1] font-bold tracking-tight text-balance sm:text-[44px]">
+              Daha fazla Google trafiği, daha fazla çevrimiçi sipariş, daha fazla tekrarlayan müşteri.
             </h2>
           </div>
         </Reveal>
-        <Reveal delay={120} className="mt-12">
+        <Reveal delay={120} className="mt-10 sm:mt-12">
           <BenefitGrid />
         </Reveal>
       </section>
 
       {/* 3. Empati + örnek hesaplar */}
-      <section className="overflow-hidden bg-white py-16 sm:py-24">
+      <section className="overflow-hidden bg-white pb-16 sm:pb-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
-            <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-end">
-              <h2 className="text-[28px] leading-[1.1] font-medium tracking-[-0.03em] text-balance sm:text-[44px]">
+            <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-6">
+              <h2 className="text-[28px] leading-[1.1] font-bold tracking-tight text-balance sm:text-[44px]">
                 Bir restoran işletmenin ne kadar zor olduğunu biliyoruz.
               </h2>
-              <p className="text-lg text-muted">
-                Yemek kalitesine ve operasyona odaklanırken komisyon ve satışlar
-                arasında boğulmamalısınız.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="mt-16 flex flex-wrap items-end justify-between gap-3">
-              <h3 className="text-[22px] font-medium tracking-[-0.02em] sm:text-[28px]">
-                Birçok restoran satışlarını artırdı.
-              </h3>
-              <p className="text-sm text-muted">
-                Kendi sitesine geçen her sipariş, komisyon kadar kâr demek.
+              <p className="text-[16px] text-muted sm:text-lg">
+                Siz de komisyon ödemeden satışlarını artıran firmalardan biri olun.
               </p>
             </div>
           </Reveal>
         </div>
-        <div className="mt-8">
+        <div className="mt-10 sm:mt-12">
           <ProofMarquee />
         </div>
         <p className="mx-auto mt-6 max-w-6xl px-4 text-xs text-muted">
-          Örnek hesaplar %20 platform komisyonu ve belirtilen ortalama sepetle
-          yapılmıştır. Pilot restoranlarımızın sonuçlarını burada paylaşacağız.
+          Örnek hesaplar %20 platform komisyonu ve belirtilen ortalama sepetle yapılmıştır. Pilot restoranlarımızın sonuçlarını burada paylaşacağız.
         </p>
       </section>
 
-      {/* 4. Büyük markaların sistemi, 3 adım alt alta */}
-      <section className="px-3 sm:px-6">
-        <div className="relative mx-auto max-w-[1280px] overflow-hidden rounded-[28px] bg-gradient-to-br from-[#062e0d] via-[#094413] to-[#0f8f28] text-white sm:rounded-[36px]">
-          <Curves />
-          <div className="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-            <Reveal>
-              <h2 className="max-w-3xl text-[28px] leading-[1.1] font-medium tracking-[-0.03em] text-balance sm:text-[44px]">
-                Büyük markaların kurduğu çevrimiçi sipariş sistemiyle
-                satışlarınızı artırın.
-              </h2>
-            </Reveal>
-            <ol className="relative mt-14 space-y-14 sm:space-y-20">
-              <div className="absolute top-2 bottom-2 left-[19px] w-px bg-gradient-to-b from-accent via-accent/40 to-transparent sm:left-[23px]" />
-              {STEPS.map(({ t, d, V }, i) => (
-                <li
-                  key={t}
-                  className="relative grid gap-8 pl-14 sm:pl-20 lg:grid-cols-2 lg:items-start"
-                >
-                  <span className="absolute top-0 left-0 grid h-10 w-10 place-items-center rounded-full bg-accent text-lg font-bold shadow-[0_0_0_8px_rgba(22,173,56,0.15)] sm:h-12 sm:w-12">
-                    {i + 1}
-                  </span>
-                  <Reveal className="sm:pt-1">
-                    <h3 className="text-[22px] font-medium tracking-[-0.02em] sm:text-[30px]">
-                      {t}
-                    </h3>
-                    <p className="mt-3 max-w-md text-[16px] text-white/70 sm:text-lg">
-                      {d}
-                    </p>
-                  </Reveal>
-                  <Reveal delay={120}>
-                    <V />
-                  </Reveal>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Üç ilke */}
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-        <div className="grid gap-12 lg:grid-cols-[280px_1fr]">
+      {/* 4. Büyük markaların sistemi, 3 adım alt alta (beyaz zemin, eşit boyutlu görseller) */}
+      <section className="border-t border-line bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4">
           <Reveal>
-            <div className="lg:sticky lg:top-24">
-              <p className="text-sm font-bold tracking-wide text-accent uppercase">
-                İnandıklarımız
-              </p>
-              <div className="mt-6 flex items-center gap-4">
-                <span className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-[#16ad38] to-[#094413] text-2xl font-bold text-white">
-                  B
-                </span>
-                <div>
-                  <p className="font-bold">Bora</p>
-                  <p className="text-sm text-muted">Kurucu, SiparişAI</p>
-                </div>
-              </div>
-            </div>
+            <h2 className="max-w-2xl text-[26px] leading-[1.1] font-bold tracking-tight text-balance sm:text-[36px]">
+              Büyük markaların kurduğu çevrimiçi sipariş sistemiyle satışlarınızı artırın.
+            </h2>
           </Reveal>
-          <ol className="divide-y divide-line">
-            {BELIEFS.map((b, i) => (
-              <Reveal key={b.t} delay={i * 100}>
-                <li className="grid gap-4 py-8 first:pt-0 sm:grid-cols-[80px_1fr]">
-                  <span className="bg-gradient-to-b from-[#16ad38] to-[#094413] bg-clip-text text-5xl leading-none font-medium text-transparent">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3 className="text-[22px] leading-tight font-medium tracking-[-0.02em] sm:text-[30px]">
-                      {b.t}
-                    </h3>
-                    <p className="mt-3 max-w-2xl text-[16px] text-muted sm:text-lg">
-                      {b.d}
-                    </p>
+          <ol className="relative mt-10 space-y-12 sm:mt-12 sm:space-y-14">
+            <div className="absolute top-2 bottom-2 left-[17px] w-px bg-gradient-to-b from-accent via-accent/30 to-transparent" />
+            {STEPS.map(({ t, d, V }, i) => (
+              <li key={t} className="relative grid gap-6 pl-12 sm:pl-16 lg:grid-cols-[1fr_440px] lg:items-center lg:gap-10">
+                <span className="absolute top-0 left-0 grid h-9 w-9 place-items-center rounded-full bg-accent text-base font-bold text-white shadow-[0_0_0_6px_rgba(22,173,56,0.12)] lg:top-1/2 lg:-translate-y-1/2">
+                  {i + 1}
+                </span>
+                <Reveal>
+                  <h3 className="text-[20px] font-bold tracking-tight sm:text-2xl">{t}</h3>
+                  <p className="mt-2 max-w-sm text-[15px] text-muted">{d}</p>
+                </Reveal>
+                <Reveal delay={120}>
+                  <div className="h-[300px] w-full max-w-[440px] [&>*]:h-full">
+                    <V />
                   </div>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>
+      </section>
+
+      {/* 5. Üç ilke: krem zemin, beyaz çerçeveli kartlar, yana kaydırmalı */}
+      <section className="bg-[#f8f4ee] py-12 sm:py-16">
+        <BeliefCarousel items={BELIEFS} />
       </section>
 
       {/* 6. Kapanış */}

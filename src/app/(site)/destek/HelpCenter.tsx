@@ -63,7 +63,7 @@ export default function HelpCenter() {
       <div className="mt-12 space-y-10">
         {filtered.map((t) => (
           <div key={t.cat}>
-            <h2 className="font-display text-xl font-semibold">{t.cat}</h2>
+            <h2 className="font-display text-xl font-bold">{t.cat}</h2>
             <div className="mt-4 divide-y divide-line rounded-3xl bg-white ring-1 ring-line">
               {t.items.map(([a, b]) => (
                 <details key={a} className="group px-6 py-4">
